@@ -78,6 +78,11 @@ if [ ! -d "$MOUNT_POINT" ]; then
     mkdir -p "$MOUNT_POINT"
 fi
 
+# Prepend // to the SMB_SHARE variable for the fstab entry, if not present
+if [[ ! "$SMB_SHARE" =~ ^// ]]; then
+    SMB_SHARE="//${SMB_SHARE}"
+fi
+
 # Check if the fstab entry already exists
 if grep -q "$SMB_SHARE" /etc/fstab; then
     echo "Warning: An entry for this share already exists in /etc/fstab."
