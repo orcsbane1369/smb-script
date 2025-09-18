@@ -3,6 +3,11 @@
 # This script automates the installation of cifs-utils and the setup
 # of a permanent SMB share mount on Ubuntu 20.04 and newer.
 # It creates a secure credential file and adds an entry to /etc/fstab.
+#
+# If you are getting a 'read: not a valid identifier' error, it is likely
+# due to Windows line endings. To fix this, run 'dos2unix' on the script:
+# sudo apt-get update && sudo apt-get install -y dos2unix
+# dos2unix smb_mount_setup.sh
 
 # Check for root privileges
 if [[ $EUID -ne 0 ]]; then
