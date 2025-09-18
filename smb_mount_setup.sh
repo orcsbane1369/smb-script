@@ -34,6 +34,12 @@ read -p "Enter the username for the share: " SMB_USER
 read -s -p "Enter the password for the share: " SMB_PASS
 echo "" # Add a newline after the password prompt
 
+read -p "Enter the SMB protocol version (e.g., 3.0, 2.1, 1.0). Press Enter to use 3.0: " SMB_VERSION
+# Set a default value if the user input is empty
+if [ -z "$SMB_VERSION" ]; then
+    SMB_VERSION="3.0"
+fi
+
 # --- Step 3: Create a secure credentials file ---
 # Create a secure directory if it doesn't exist
 CRED_DIR="/etc/samba/creds"
@@ -70,8 +76,8 @@ else
     CURRENT_UID=$(id -u "$SUDO_USER")
     CURRENT_GID=$(id -g "$SUDO_USER")
 
-    # The fstab line
-    FSTAB_LINE="$SMB_SHARE $MOUNT_POINT cifs credentials=$CRED_FILE,uid=$CURRENT_UID,gid=$CURRENT_GID,iocharset=utf8,_netdev 0 0"
+    # The fstab line, with the SMB version and credentials
+    FSTAB_LINE="$SMB_SHARE $MOUNT_POINT cifs credentials=$CRED_FILE,vers=$SMB_VERSION,uid=$CURRENT_UID,gid=$CURRENT_GID,iocharset=utf8,_netdev 0 0"
 
     echo "Adding the following line to /etc/fstab:"
     echo "$FSTAB_LINE"
