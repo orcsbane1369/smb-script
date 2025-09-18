@@ -76,8 +76,8 @@ else
     CURRENT_UID=$(id -u "$SUDO_USER")
     CURRENT_GID=$(id -g "$SUDO_USER")
 
-    # The fstab line, with the SMB version and credentials
-    FSTAB_LINE="$SMB_SHARE $MOUNT_POINT cifs credentials=$CRED_FILE,vers=$SMB_VERSION,uid=$CURRENT_UID,gid=$CURRENT_GID,iocharset=utf8,_netdev 0 0"
+    # The fstab line, with the SMB version, credentials, and nounix option
+    FSTAB_LINE="$SMB_SHARE $MOUNT_POINT cifs credentials=$CRED_FILE,vers=$SMB_VERSION,uid=$CURRENT_UID,gid=$CURRENT_GID,iocharset=utf8,nounix,_netdev 0 0"
 
     echo "Adding the following line to /etc/fstab:"
     echo "$FSTAB_LINE"
