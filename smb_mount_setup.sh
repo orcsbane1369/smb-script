@@ -28,7 +28,7 @@ fi
 # --- Step 2: Get user input ---
 echo ""
 read -p "Enter the full SMB share path (e.g., //server/share): " SMB_SHARE
-read -p "Enter the username for the share: " " SMB_USER"
+read -p "Enter the username for the share: " SMB_USER
 
 # Use a secure read for the password
 read -s -p "Enter the password for the share: " SMB_PASS
