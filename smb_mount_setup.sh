@@ -39,9 +39,9 @@ echo "" # Add a newline after the password prompt
 CRED_DIR="/etc/samba/creds"
 mkdir -p "$CRED_DIR"
 
-# Sanitize the share path to use as a filename
-SHARE_NAME=$(echo "$SMB_SHARE" | sed 's/[^a-zA-Z0-9]/_/g')
-CRED_FILE="$CRED_DIR/$SHARE_NAME.cred"
+# Use the full path for the credentials filename
+CRED_FILENAME=$(echo "$SMB_SHARE" | sed 's/\//_/g' | sed 's/\./_/g')
+CRED_FILE="$CRED_DIR/$CRED_FILENAME.cred"
 
 echo "Creating credentials file: $CRED_FILE"
 echo "username=$SMB_USER" > "$CRED_FILE"
@@ -49,8 +49,8 @@ echo "password=$SMB_PASS" >> "$CRED_FILE"
 chmod 600 "$CRED_FILE"
 
 # --- Step 4: Create mount point and fstab entry ---
-# Get the mount point name from the share path
-MOUNT_POINT="/mnt/${SHARE_NAME}"
+# Get a user-friendly mount point name from the last part of the share path
+MOUNT_POINT="/mnt/$(basename "$SMB_SHARE")"
 
 # Check if the mount point directory exists, create if not
 if [ ! -d "$MOUNT_POINT" ]; then
