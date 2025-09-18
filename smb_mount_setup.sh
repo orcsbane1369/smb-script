@@ -39,8 +39,10 @@ echo "" # Add a newline after the password prompt
 CRED_DIR="/etc/samba/creds"
 mkdir -p "$CRED_DIR"
 
-# Use the full path for the credentials filename
-CRED_FILENAME=$(echo "$SMB_SHARE" | sed 's/\//_/g' | sed 's/\./_/g')
+# Get a user-friendly filename from the server and share name
+SERVER_NAME=$(echo "$SMB_SHARE" | cut -d '/' -f 3)
+SHARE_BASE=$(basename "$SMB_SHARE")
+CRED_FILENAME="${SERVER_NAME}_${SHARE_BASE}"
 CRED_FILE="$CRED_DIR/$CRED_FILENAME.cred"
 
 echo "Creating credentials file: $CRED_FILE"
