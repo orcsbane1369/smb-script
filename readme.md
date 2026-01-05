@@ -19,7 +19,7 @@ This ensures your share is automatically mounted every time you boot your machin
    You can either clone the repository or download the script directly using wget or curl.
    
    ```
-   wget [https://raw.githubusercontent.com/YourUsername/YourRepoName/main/smb_mount_setup.sh](https://raw.githubusercontent.com/YourUsername/YourRepoName/main/smb_mount_setup.sh)
+   wget https://raw.githubusercontent.com/orcsbane1369/smb-script/main/smb_mount_setup.sh
    ```
 
 2. Make the script executable:
